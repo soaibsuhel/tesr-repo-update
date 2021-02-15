@@ -1,25 +1,25 @@
-import logo from './logo.svg';
+import React, { Component } from 'react';
 import './App.css';
+import Book from './components/Book';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+//Class Component
+class App extends Component {
+
+  constructor() {
+    super();
+    this.state = {};
+  }
+  render() {
+    return (
+      <div className="App">
+        <h1>Book List</h1>
+        <Book bookName="1998" writer="George oreewll" />
+        <Book bookName="The vanchi man" writer="Den law" />
+        <Book bookName="The alimal" writer="Paulo Coelho" />
+
+      </div>
+    );
+  }
 }
-
 export default App;
