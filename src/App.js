@@ -13,17 +13,32 @@ class App extends Component {
     ],
     otherProp: "I am some other Prop"
   }
-  // constructor() {
-  //   super();
-  //   this.state = {};
-  // }
+  changeBookState = newBookName => {
+    this.setState({
+      books: [
+        { bookName: newBookName, writer: "George Orwell" },
+        { bookName: "The Da Vinci Code", writer: "Dan Brown" },
+        { bookName: "Memorphorsis", writer: "Paulo Coelho" }
+      ]
+    });
+  }
+
   render() {
+    console.log(this.state);
     return (
       <div className="App">
         <h1>Book List</h1>
-        <Book bookName={this.state.books[0].bookName} writer={this.state.books[0].writer} />
-        <Book bookName={this.state.books[1].bookName} writer={this.state.books[0].writer} />
-        <Book bookName={this.state.books[2].bookName} writer={this.state.books[0].writer} />
+        <button onClick={() => this.changeBookState("Nineteen Eighty-Four")}>Change State</button>
+        <Book
+          bookName={this.state.books[0].bookName}
+          writer={this.state.books[0].writer} />
+        <Book
+          bookName={this.state.books[1].bookName}
+          writer={this.state.books[1].writer} />
+        <Book
+          bookName={this.state.books[2].bookName}
+          writer={this.state.books[2].writer}
+          change={this.changeBookState.bind(this, "Nineteen  84")} />
       </div>
     );
   }
