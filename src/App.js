@@ -23,15 +23,32 @@ class App extends Component {
     });
   }
 
+  changeWithInputeState = event => {
+    this.setState({
+      books: [
+        { bookName: event.tergat.value, writer: "George Orwell" },
+        { bookName: "The Da Vinci Code", writer: "Dan Brown" },
+        { bookName: "Memorphorsis", writer: "Paulo Coelho" }
+      ]
+    });
+  }
   render() {
+    const style = {
+      border: "1px solid red",
+      borderRadius: "5px",
+      backgroundColor: "black",
+      color: "white"
+    };
     console.log(this.state);
     return (
       <div className="App">
-        <h1>Book List</h1>
+        <h1 style={style}>Book List</h1>
         <button onClick={() => this.changeBookState("Nineteen Eighty-Four")}>Change State</button>
+        <input type="text" onChange={this.changeWithInputeState} />
         <Book
           bookName={this.state.books[0].bookName}
-          writer={this.state.books[0].writer} />
+          writer={this.state.books[0].writer}
+          inputName={this.changeWithInputeState} />
         <Book
           bookName={this.state.books[1].bookName}
           writer={this.state.books[1].writer} />
