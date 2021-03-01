@@ -3,59 +3,65 @@ import './App.css';
 import Book from './components/Book';
 
 class App extends Component {
-  // State
-  // 16.8 
   state = {
     books: [
-      { bookName: "1984", writer: "George Orwell" },
-      { bookName: "The Da Vinci Code", writer: "Dan Brown" },
-      { bookName: "The Alchemist", writer: "Paulo Coelho" }
+      { id: 1, bookName: "1984", writer: "George Orwell" },
+      { id: 2, bookName: "The Da Vinci Code", writer: "Dan Brown" },
+      { id: 3, bookName: "The Alchemist", writer: "Paulo Coelho" }
     ],
-    otherProp: "I am some other Prop"
-  }
-  changeBookState = newBookName => {
-    this.setState({
-      books: [
-        { bookName: newBookName, writer: "George Orwell" },
-        { bookName: "The Da Vinci Code", writer: "Dan Brown" },
-        { bookName: "Memorphorsis", writer: "Paulo Coelho" }
-      ]
-    });
+
   }
 
-  changeWithInputeState = event => {
-    this.setState({
-      books: [
-        { bookName: event.tergat.value, writer: "George Orwell" },
-        { bookName: "The Da Vinci Code", writer: "Dan Brown" },
-        { bookName: "Memorphorsis", writer: "Paulo Coelho" }
-      ]
-    });
+  changeWithInputState = (event, index) => {
+    const book = {
+      ...this.state.books[index]
+    }
+    book.bookName = event.target.value;
+    const books = [...this.state.books];
+    books[index] = book;
+    this.setState({ books: books });
   }
+
+  deleteBookState = index => {
+    // const books = this.state.books.splice();
+    //const books = this.state.books.map(item => item);
+    const books = [...this.state.books];
+    books.splice(index, 1);
+    this.setState({
+      books: books
+    });
+
+  };
+
   render() {
     const style = {
       border: "1px solid red",
       borderRadius: "5px",
       backgroundColor: "black",
-      color: "white"
+      color: "white",
     };
-    console.log(this.state);
+
+    //const booksState = this.state.books;
+
+    const books = this.state.books.map((book, index) => {
+      return (
+        <Book
+          bookName={book.bookName}
+          writer={book.writer}
+          delete={() => this.deleteBookState(index)}
+          key={book.id}
+          inputName={(event) => this.changeWithInputState(event, index)}
+        />
+      );
+    });
+
+    //console.log(this.state);
+    console.log(books);
     return (
       <div className="App">
         <h1 style={style}>Book List</h1>
-        <button onClick={() => this.changeBookState("Nineteen Eighty-Four")}>Change State</button>
-        <input type="text" onChange={this.changeWithInputeState} />
-        <Book
-          bookName={this.state.books[0].bookName}
-          writer={this.state.books[0].writer}
-          inputName={this.changeWithInputeState} />
-        <Book
-          bookName={this.state.books[1].bookName}
-          writer={this.state.books[1].writer} />
-        <Book
-          bookName={this.state.books[2].bookName}
-          writer={this.state.books[2].writer}
-          change={this.changeBookState.bind(this, "Nineteen  84")} />
+
+        {books}
       </div>
     );
   }
